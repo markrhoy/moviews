@@ -72,7 +72,13 @@ const Movie = props => {
             <Drawer
                 title={
                     <div>
-                        <Text style={{color:'#f5c518'}}>{details.title}</Text>
+                        <Space>
+                            <Text style={{color:'#f5c518'}}>{details.title}</Text>
+                            <Text style={{fontWeight:'normal'}} type="secondary">
+                                <blockquote>{details.tagline}</blockquote>
+                            </Text>
+                        </Space>
+                        
                     </div>
                 }
                 width={600}
@@ -88,8 +94,24 @@ const Movie = props => {
                         alt={details.title}
                         src={BASE_IMAGE_URL + details.poster_path}
                     />
+
+                    <Space>
+                    <Space>
+                        <Text type="secondary"><TeamOutlined /> Popularity: </Text>
+                        <Text type="secondary">{details.popularity}</Text>
+                    </Space>
+                    <Divider type="vertical" />
+                    <Space>
+                        <Text type="secondary"><CalendarOutlined /> Release Date: </Text>
+                        <Text type="secondary">{details.release_date}</Text>
+                    </Space>
+                    <Divider type="vertical" />
+                    <Rate disabled value={details.vote_average / 2} allowHalf={true} />
+                    </Space>
+
                     <Paragraph>{details.overview}</Paragraph>
                     
+
                 </Space>
                 
             </Drawer>

@@ -1,4 +1,4 @@
-import { Badge, Col, Row, Typography, List, Card, Image, Space, Rate } from 'antd';
+import { Badge, Col, Row, Typography, List, Card, Image, Space, Rate, Pagination } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
@@ -30,9 +30,9 @@ const App = () => {
           </Col>
         </Row>
       </header>
-      <main>
+      <main className="main-content">
         <Row justify="center">
-          <Col span={18}>
+          <Col span={18} >
             <List
               grid={{
                 gutter: 16,
@@ -45,8 +45,17 @@ const App = () => {
                 </List.Item>
               )}
             />
+
+            <Row justify="center">
+              <Col>
+                <Pagination
+                total={trendingMovies.total_pages}
+                responsive={true}/>
+              </Col>
+            </Row>
           </Col>
         </Row>
+
       </main>
 
     </div>
