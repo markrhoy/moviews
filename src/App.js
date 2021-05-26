@@ -1,25 +1,57 @@
-import logo from './logo.svg';
+import { Badge, Col, Row, Typography, List, Card, Image, Space, Rate } from 'antd';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './App.css';
+import Movie from './components/Movie';
 
-function App() {
+const {Text} = Typography
+
+const BASE_URL = "https://api.themoviedb.org/3"
+
+const App = () => {
+  const [trendingMovies, setTrendingMovies]  = useState({})
+
+  useEffect(() => {
+    axios.get(
+      BASE_URL + '/trending/movie/day', 
+      {params: {'api_key': process.env.REACT_APP_KEY}}
+    ).then( res => {
+      setTrendingMovies(res.data)
+    })
+  }, [])
+
+  console.log(trendingMovies)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="app">
+      <header>
+        <Row justify="center" className="nav" align="middle">
+          <Col span={18}>
+            <Text>Moviews</Text>
+          </Col>
+        </Row>
       </header>
-    </div>
-  );
-}
+      <main>
+        <Row justify="center">
+          <Col span={18}>
+            <List
+              grid={{
+                gutter: 16,
+                column: 4
+              }}
+              dataSource={trendingMovies.results}
+              renderItem={ item => (
+                <List.Item>
+                  <Movie id={item.id}/>
+                </List.Item>
+              )}
+            />
+          </Col>
+        </Row>
+      </main>
 
-export default App;
+    </div>
+  )
+}
+  
+
+export default App
