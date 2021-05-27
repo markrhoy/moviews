@@ -19,20 +19,34 @@ const App = () => {
   const [trendingMovies, setTrendingMovies]  = useState({})
   const [pageNumber, setPageNumber] = useState(1)
 
-  useEffect(() => {
-    setTrendingMovies({})
-    axios.get(
+  useEffect( async () => {
+     setTrendingMovies({})
+     await axios.get(
       BASE_URL + '/trending/movie/day', 
       {params: {
         'api_key': process.env.REACT_APP_KEY,
-        'page':pageNumber}}
+        'page':pageNumber,
+      }}
     ).then( res => {
       setTrendingMovies(res.data)
     })
-
-    
-
   }, [pageNumber])
+
+  const searchMovie =async title => {
+    await axios.get(
+      BASE_URL + '/search/movie', 
+      {params: {
+        'api_key': process.env.REACT_APP_KEY,
+        'page':pageNumber,
+        'query': title,
+        'include_adult': "false"
+      
+      }}
+    ).then( res => {
+      setTrendingMovies({})
+      setTrendingMovies(res.data)
+    })
+  }
 
   const handleOnchange = page => {
     setPageNumber(page)
@@ -67,7 +81,7 @@ const App = () => {
               placeholder="Type movie title ..."
               enterButton="Search"
               size="large"
-              
+              onSearch={searchMovie}
             />
             </Col>
           </Row>
@@ -103,8 +117,8 @@ const App = () => {
             </Row>
           </Col>
         </Row>
-
       </main>
+    
 
     </div>
   )

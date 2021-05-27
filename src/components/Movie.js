@@ -59,7 +59,7 @@ const Movie = props => {
                         width={'auto'}
                         alt={details.title}
                         src={BASE_IMAGE_URL + details.poster_path}
-                        fallback={BASE_IMAGE_URL + details.poster_path}
+                        fallback={FALLBACK_IMAGE_URL} 
                     />
                 }>
                 <Meta
@@ -104,9 +104,15 @@ const Movie = props => {
                 <Space direction="vertical">
                     <Image 
                         width={'auto'}
-                        placeholder={true}
+                        placeholder={
+                            <Image
+                                width={"auto"}
+                                src={FALLBACK_IMAGE_URL}
+                            />
+                        }
                         alt={details.title}
                         src={BASE_IMAGE_URL + details.poster_path}
+                        fallback={FALLBACK_IMAGE_URL}
                     />
 
                     <Space>
