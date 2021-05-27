@@ -1,15 +1,15 @@
-import { Skeleton,Card, Image, Space, Rate, Typography, Drawer,Divider, Tag } from 'antd';
+import { Card, Image, Space, Rate, Typography } from 'antd';
 import {
     CalendarOutlined,
     TeamOutlined,
-    VideoCameraOutlined,
 } from '@ant-design/icons';
 import '../App.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import DetailDrawer from './DetailDrawer';
 
-const {Text, Paragraph} = Typography
-const {Meta} = Card
+const { Text } = Typography
+const { Meta } = Card
 
 const BASE_URL = "https://api.themoviedb.org/3"
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
@@ -18,9 +18,9 @@ const FALLBACK_IMAGE_URL = "https://www.virginmediastore.com/media/tile-placehol
 const Movie = props => {
     const movieId = props.id
     const [details, setDetails] = useState({})
-    const [visible, setVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(true)
-   
+    const [visible, setVisible] = useState(false);
+
 
     useEffect(() => {
         axios.get(
@@ -41,8 +41,6 @@ const Movie = props => {
         setVisible(false);
     };
 
-    
-    
     return (
         <div>
             <Card
@@ -50,21 +48,25 @@ const Movie = props => {
                 bordered={false}
                 cover={
                     <Image
+                        width={'auto'}
+                        alt={details.title}
+                        src={BASE_IMAGE_URL + details.poster_path}
+                        fallback={FALLBACK_IMAGE_URL}
                         placeholder={
                             <Image
                                 width={"auto"}
                                 src={FALLBACK_IMAGE_URL}
                             />
-                        }
-                        width={'auto'}
-                        alt={details.title}
-                        src={BASE_IMAGE_URL + details.poster_path}
-                        fallback={FALLBACK_IMAGE_URL} 
-                    />
+                        } />
                 }>
                 <Meta
                     title={
-                        <Text ellipsis={false} className="card-title" onClick={showDrawer}>{details.original_title}</Text>
+                        <Text
+                            ellipsis={false}
+                            className="card-title"
+                            onClick={showDrawer}>
+                            {details.original_title}
+                        </Text>
                     }
                     description={
                         <div>
@@ -81,58 +83,12 @@ const Movie = props => {
                     }
                 />
             </Card>
-
-            <Drawer
-                title={
-                    <div>
-                        <Space>
-                            <Text style={{color:'#f5c518'}}>{details.title}</Text>
-                            <Text style={{fontWeight:'normal'}} type="secondary">
-                                <blockquote>{details.tagline}</blockquote>
-                            </Text>
-                        </Space>
-                        
-                    </div>
-                }
-                width={600}
-                placement="right"
-                closable={true}
-                onClose={onClose}
+            <DetailDrawer
+                details={details}
                 visible={visible}
-                >
-                    
-                <Space direction="vertical">
-                    <Image 
-                        width={'auto'}
-                        placeholder={
-                            <Image
-                                width={"auto"}
-                                src={FALLBACK_IMAGE_URL}
-                            />
-                        }
-                        alt={details.title}
-                        src={BASE_IMAGE_URL + details.poster_path}
-                        fallback={FALLBACK_IMAGE_URL}
-                    />
+                onClose={onClose}
+            />
 
-                    <Space>
-                    <Space>
-                        <Text type="secondary"><TeamOutlined /> Popularity: </Text>
-                        <Text type="secondary">{details.popularity}</Text>
-                    </Space>
-                    <Divider type="vertical" />
-                    <Space>
-                        <Text type="secondary"><CalendarOutlined /> Release Date: </Text>
-                        <Text type="secondary">{details.release_date}</Text>
-                    </Space>
-                    <Divider type="vertical" />
-                    <Rate disabled value={details.vote_average / 2} allowHalf={true} />
-                    </Space>
-                    <Paragraph>{details.overview}</Paragraph>
-                    
-                </Space>
-                
-            </Drawer>
         </div>
     )
 }
