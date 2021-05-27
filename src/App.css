@@ -7,6 +7,7 @@
 .nav{
     background-color: #111111;
     height: 70px;
+    
 }
 
 .card-title{
@@ -17,4 +18,26 @@
 .main-content{
     margin-top: 16px;
     margin-bottom: 16px;
+    
+}
+
+.search-bar{
+    height: 90px;
+    background-color: #1b1b1b;
+}
+
+body{
+    background-color: #0e0e0e;
+    overflow-x: hidden;
+}
+
+.ant-input.ant-input:hover,
+.ant-input.ant-input:focus{
+    border-color: #d89614;
+}
+.ant-btn-primary:hover,
+.ant-btn-primary:active,
+.ant-btn-primary{
+    background-color: #d89614;
+    border-color: #d89614;
 }
