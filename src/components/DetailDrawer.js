@@ -61,22 +61,22 @@ const DetailDrawer = props => {
                         <Rate disabled value={props.details.vote_average / 2} allowHalf={true} />
                     </Space>
                     <Descriptions bordered={true}>
-                        <Descriptions.Item label="Overview" span={3}>
+                        <Descriptions.Item label={<Text type="warning" strong>Overview</Text>} span={3}>
                             {props.details.overview}
                         </Descriptions.Item>
-                        <Descriptions.Item label="Status" span={3}>
+                        <Descriptions.Item label={<Text type="warning" strong>Status</Text>} span={3}>
                             {props.details.status}
                         </Descriptions.Item>
-                        <Descriptions.Item label="Homepage" span={3}>
-                            <Link href={props.details.homepage}>{props.details.homepage}</Link>
+                        <Descriptions.Item label={<Text type="warning" strong>Homepage</Text>} span={3}>
+                            <Link href={props.details.homepage} type="warning">{props.details.homepage}</Link>
                         </Descriptions.Item>
-                        <Descriptions.Item label="Runtime" span={3}>
+                        <Descriptions.Item label={<Text type="warning" strong>Runtime</Text>} span={3}>
                             {props.details.runtime} minutes
                         </Descriptions.Item>
-                        <Descriptions.Item label="Budget">
+                        <Descriptions.Item label={<Text type="warning" strong>Budget</Text>}>
                             $ {props.details.budget}
                         </Descriptions.Item>
-                        <Descriptions.Item label="Revenue">
+                        <Descriptions.Item label={<Text type="warning" strong>Revenue</Text>}>
                             $ {props.details.revenue}
                         </Descriptions.Item>
                         
