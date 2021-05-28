@@ -11,7 +11,7 @@ const FALLBACK_IMAGE_URL = "https://www.virginmediastore.com/media/tile-placehol
 const { Text, Link } = Typography
 
 const DetailDrawer = props => {
-    
+
     return (
         <div>
             <Drawer
@@ -34,6 +34,7 @@ const DetailDrawer = props => {
             >
 
                 <Space direction="vertical" align="center">
+
                     <Image
                         width={'auto'}
                         placeholder={
@@ -60,6 +61,7 @@ const DetailDrawer = props => {
                         <Divider type="vertical" />
                         <Rate disabled value={props.details.vote_average / 2} allowHalf={true} />
                     </Space>
+
                     <Descriptions bordered={true}>
                         <Descriptions.Item label={<Text type="warning" strong>Overview</Text>} span={3}>
                             {props.details.overview}
@@ -68,20 +70,19 @@ const DetailDrawer = props => {
                             {props.details.status}
                         </Descriptions.Item>
                         <Descriptions.Item label={<Text type="warning" strong>Homepage</Text>} span={3}>
-                            <Link href={props.details.homepage} type="warning">{props.details.homepage}</Link>
+                            <Link href={props.details.homepage} type="warning" target="_blank">{props.details.homepage}</Link>
                         </Descriptions.Item>
                         <Descriptions.Item label={<Text type="warning" strong>Runtime</Text>} span={3}>
                             {props.details.runtime} minutes
                         </Descriptions.Item>
                         <Descriptions.Item label={<Text type="warning" strong>Budget</Text>}>
-                            $ {props.details.budget}
+                            {props.details.budget ? `$ ${props.details.budget}` : "N/A"}
                         </Descriptions.Item>
                         <Descriptions.Item label={<Text type="warning" strong>Revenue</Text>}>
-                            $ {props.details.revenue}
+                            {props.details.revenue ? `$ ${props.details.revenue}` : "N/A"}
                         </Descriptions.Item>
-                        
                     </Descriptions>
-
+                    
                 </Space>
 
             </Drawer>
